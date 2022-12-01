@@ -13,6 +13,7 @@
   },
   "scripts": {
     "day": "tsc --build && node ./scripts/solveProblem.js",
+    "solve": "tsc --build && node ./scripts/solveProblem.js",
     "setup": "node ./scripts/initializeProblem.js"
   }
 }

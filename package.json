@@ -1,0 +1,18 @@
+{
+  "name": "advent-of-code-2022",
+  "version": "1.0.0",
+  "description": "Advent of Code, 2022",
+  "main": "index.js",
+  "repository": "https://github.com/mmargel/advent-of-code-2021.git",
+  "author": "mmargel",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@types/node": "16.x",
+    "typescript": "4.x"
+  },
+  "scripts": {
+    "day": "tsc --build && node ./scripts/solveProblem.js",
+    "setup": "node ./scripts/initializeProblem.js"
+  }
+}

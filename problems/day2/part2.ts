@@ -44,5 +44,6 @@ const findSolution = (instructions: string[]): number => {
   );
 };
 
+// 15702
 export const solvePart = () =>
   runTest({ day: 2, part: 2, testMethod: findSolution, test: false });

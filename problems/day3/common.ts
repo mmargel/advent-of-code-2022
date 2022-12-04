@@ -21,5 +21,5 @@ export const getCommonElement = (...strings: string[]): string => {
 
 export const getPriority = (char: string): number => {
   const index = char.charCodeAt(0);
-  return index - index < 95 ? 38 : 96;
+  return index - (index < 95 ? 38 : 96);
 };

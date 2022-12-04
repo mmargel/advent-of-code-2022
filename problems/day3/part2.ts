@@ -4,7 +4,7 @@ import { getCommonElement, getPriority } from "./common.js";
 const findSolution = (rudsacks: string[]): number => {
   let totalPriority = 0;
   for (let batchIndex = 0; batchIndex < rudsacks.length; batchIndex += 3) {
-    const batch = rudsacks.slice(batchIndex, batchIndex);
+    const batch = rudsacks.slice(batchIndex, batchIndex + 3);
     const commonElement = getCommonElement(...batch);
     totalPriority += getPriority(commonElement);
   }

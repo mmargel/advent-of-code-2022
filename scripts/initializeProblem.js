@@ -19,6 +19,7 @@ export const solvePart = () =>
 const createPart = (day, part) => {
   const dir = [PROBLEM_ROOT, `day${day}`].join("/");
   const path = [dir, `part${part}.ts`].join("/");
+  const commonPath = [dir, "common.ts"].join("/");
 
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
@@ -26,6 +27,9 @@ const createPart = (day, part) => {
 
   if (!fs.existsSync(path)) {
     fs.writeFileSync(path, getTemplate(day, part));
+  }
+  if (!fs.existsSync(commonPath)) {
+    fs.writeFileSync(commonPath, "");
   }
 };
 

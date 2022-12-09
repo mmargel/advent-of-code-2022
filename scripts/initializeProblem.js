@@ -5,13 +5,14 @@ import { PARTS_PER_PROBLEM } from "./constants.js";
 const PROBLEM_ROOT = "./problems";
 const DATA_ROOT = "./data";
 
-const getTemplate = (day, part) => `
+const getTemplate = (day, part) => `\
 import { runTest } from "../utils/runTest.js";
 
 const findSolution = (_values: string[]) : number => {
   return -1;
 };
 
+// Solution: ???
 export const solvePart = () =>
   runTest({ day: ${day}, part: ${part}, testMethod: findSolution, test: true });
 `;

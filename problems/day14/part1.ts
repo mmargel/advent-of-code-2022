@@ -1,31 +1,25 @@
 import { runTest } from "../utils/runTest.js";
-import { initializeMap, isOpen, Map, Point, runSimulation } from "./common.js";
+import { isOpen, Map, Point, runSimulation } from "./common.js";
 
-const dropSand = (map: Map, origin: Point): boolean => {
-  let [x, y] = origin;
-
-  while (map[y + 1]) {
-    if (isOpen(map, [x, y + 1])) y++;
-    else if (isOpen(map, [x - 1, y + 1])) {
+const dropSand = (map: Map, [x, y]: Point): boolean => {
+  for (; y < map.length; y++) {
+    if (isOpen(map, [x, y])) {
+      // fall
+    } else if (isOpen(map, [x - 1, y])) {
       x -= 1;
-      y++;
-    } else if (isOpen(map, [x + 1, y + 1])) {
+    } else if (isOpen(map, [x + 1, y])) {
       x += 1;
-      y++;
     } else {
-      map[y][x] = "o";
-      return true;
+      map[y - 1][x] = "o";
+      break;
     }
   }
 
-  return false;
+  return y < map.length;
 };
 
-const findSolution = (values: string[]): number => {
-  const map = initializeMap(values);
-  const sandDropped = runSimulation(map, dropSand);
-  return sandDropped;
-};
+const findSolution = (values: string[]): number =>
+  runSimulation(values, dropSand);
 
 // Solution: 683
 export const solvePart = () =>

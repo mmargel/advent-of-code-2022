@@ -23,7 +23,7 @@ const parseEndpoints = (line: string): Point[] =>
     .split("->")
     .map((point) => point.trim().split(",")) as unknown as Point[];
 
-export const initializeMap = (values: string[]): Map => {
+const initializeMap = (values: string[]): Map => {
   const lines = values.map((line) => parseEndpoints(line));
   const mapHeight = lines.flat().reduce((acc, [, y]) => Math.max(acc, y), 0);
 
@@ -32,42 +32,30 @@ export const initializeMap = (values: string[]): Map => {
     .map((_) => new Array<string>().fill("."));
 
   for (let i = 0; i < lines.length; i++) {
-    const endpoints = lines[i];
-    for (let j = 0; j < endpoints.length - 1; j++) {
-      let [x, y] = endpoints[j];
-      const [xf, yf] = endpoints[j + 1];
+    for (let j = 0; j < lines[i].length - 1; j++) {
+      let [x, y] = lines[i][j];
+      const [xf, yf] = lines[i][j + 1];
 
-      while (x < xf) {
-        map[y][x] = "#";
-        x++;
-      }
-      while (x > xf) {
-        map[y][x] = "#";
-        x--;
-      }
-      while (y < yf) {
-        map[y][x] = "#";
-        y++;
-      }
-      while (y >= yf) {
-        map[y][x] = "#";
-        y--;
-      }
+      while (x < xf) map[y][x++] = "#";
+      while (x > xf) map[y][x--] = "#";
+      while (y < yf) map[y++][x] = "#";
+      while (y >= yf) map[y--][x] = "#";
     }
   }
 
-  map[ORIGIN[1]][ORIGIN[0]] = "+";
+  map[ORIGIN[1]][ORIGIN[0]] = "+"; // for drawing
   return map;
 };
 
 export const runSimulation = (
-  map: Map,
+  values: string[],
   dropSand: (map: Map, point: Point) => boolean,
   visual: boolean = false
 ) => {
-  let count = 0;
+  // verbose to support printing
+  const map = initializeMap(values);
   if (visual) printMap(map);
-  while (dropSand(map, ORIGIN)) count++;
+  while (dropSand(map, ORIGIN));
   if (visual) printMap(map);
-  return count;
+  return map.flat().filter((c) => c == "o").length;
 };
